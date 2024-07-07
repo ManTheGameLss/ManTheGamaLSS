@@ -34,6 +34,10 @@ public class CameraManager : MonoBehaviour
         targetTransform = FindObjectOfType<PlayerManager>().transform;
         cameraTransform = Camera.main.transform;
         defaultPosition = cameraTransform.localPosition.z;
+
+        // lock mouse and make it invisible
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
     }
 
     public void HandleAllCameraMovement()
