@@ -34,7 +34,7 @@ public class PlayerLocomotion : MonoBehaviour
     //public float runningSpeed = 1.5f;
     //public float sprintingSpeed = 3;
     public float rotationSpeed = 15;
-    [Tooltip("Amount how much player will jitter. if you dont want it, put 0.01 here")]
+    [Tooltip("Amount how much player will jitter. if you dont want it, put 0.01 here :D")]
     public float jittering = 0.01f;
 
     [Header("Jump Speeds")]
