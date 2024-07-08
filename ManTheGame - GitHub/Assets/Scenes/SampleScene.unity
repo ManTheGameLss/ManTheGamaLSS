@@ -618,6 +618,7 @@ MonoBehaviour:
   runningSpeed: 2
   sprintingSpeed: 4
   rotationSpeed: 15
+  jittering: 0.01
   jumpHeight: 3
   gravityIntensity: -5
 --- !u!114 &463777460
@@ -2140,7 +2141,7 @@ MonoBehaviour:
   cameraTransform: {fileID: 963194228}
   collisionLayers:
     serializedVersion: 2
-    m_Bits: 193
+    m_Bits: 129
   cameraCollisionOffset: 0.2
   minimumCollisionOffset: 0.2
   cameraCollisionRadius: 2

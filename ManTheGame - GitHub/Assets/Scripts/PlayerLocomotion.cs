@@ -34,6 +34,8 @@ public class PlayerLocomotion : MonoBehaviour
     //public float runningSpeed = 1.5f;
     //public float sprintingSpeed = 3;
     public float rotationSpeed = 15;
+    [Tooltip("Amount how much player will jitter. if you dont want it, put 0.01 here")]
+    public float jittering = 0.01f;
 
     [Header("Jump Speeds")]
     public float jumpHeight = 3;
@@ -80,7 +82,7 @@ public class PlayerLocomotion : MonoBehaviour
         }
         else if (isGrounded)
         {
-            moveDirection.y = -0.5f;
+            moveDirection.y = jittering;
         }
        
 
