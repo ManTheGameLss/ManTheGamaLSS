@@ -22,6 +22,7 @@ public class InputManager : MonoBehaviour
     public bool c_Input;
     public bool y_Input;
     public bool jump_Input;
+    public bool is_moving;
 
     private void Awake()
     {
@@ -44,6 +45,9 @@ public class InputManager : MonoBehaviour
             playerControls.PlayerActions.C.canceled += i => c_Input = false;
             playerControls.PlayerActions.Jump.performed += i => jump_Input = true;
             playerControls.PlayerActions.Y.performed += i => y_Input = true;
+
+            playerControls.PlayerMovement.Movement.performed += i => is_moving = true;
+            playerControls.PlayerMovement.Movement.canceled += i => is_moving = false;
         }
 
         playerControls.Enable();
