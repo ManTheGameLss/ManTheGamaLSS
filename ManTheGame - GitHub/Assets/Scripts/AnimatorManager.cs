@@ -88,6 +88,51 @@ public class AnimatorManager : MonoBehaviour
         }
         #endregion
 
+        // stuff i added ;)
+        #region MoveForward
+        if (Input.GetKey(KeyCode.W))
+        {
+            animator.SetBool("MoveForward", true);
+        }
+        else
+        {
+            animator.SetBool("MoveForward", false);
+        }
+        #endregion
+
+        #region MoveBackwards
+        if (Input.GetKey(KeyCode.S))
+        {
+            animator.SetBool("MoveBackwards", true);
+        }
+        else
+        {
+            animator.SetBool("MoveBackwards", false);
+        }
+        #endregion
+
+        #region MoveLeft
+        if (Input.GetKey(KeyCode.A))
+        {
+            animator.SetBool("MoveLeft", true);
+        }
+        else
+        {
+            animator.SetBool("MoveLeft", false);
+        }
+        #endregion
+
+        #region MoveRight
+        if (Input.GetKey(KeyCode.D))
+        {
+            animator.SetBool("MoveRight", true);
+        }
+        else
+        {
+            animator.SetBool("MoveRight", false);
+        }
+        #endregion
+
         if (isWalking)
         {
             snappedHorizontal = horizontalMovement;
