@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class AnimatorManager : MonoBehaviour
 {
-    InputManager inputManager;
+    public InputManager inputManager;
     public Animator animator;
-    PlayerManager playerManager;
-    PlayerLocomotion playerLocomotion;
+    public PlayerManager playerManager;
+    public PlayerLocomotion playerLocomotion;
 
     int horizontal;
     int vertical;
