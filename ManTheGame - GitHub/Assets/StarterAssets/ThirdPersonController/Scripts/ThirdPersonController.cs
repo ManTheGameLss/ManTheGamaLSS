@@ -1,4 +1,5 @@
-﻿ using UnityEngine;
+﻿using UnityEditor.Build;
+using UnityEngine;
 #if ENABLE_INPUT_SYSTEM 
 using UnityEngine.InputSystem;
 #endif
@@ -14,6 +15,15 @@ namespace StarterAssets
 #endif
     public class ThirdPersonController : MonoBehaviour
     {
+        // ADD YOUR VARIABLES HERE
+
+        
+        [HideInInspector] public bool isRegenerating;
+        [Header("Variables made by devs")]
+        public float stamina;
+        public float maxStamina;
+
+        [Space]
         [Header("Player")]
         [Tooltip("Move speed of the character in m/s")]
         public float MoveSpeed = 2.0f;
@@ -214,8 +224,52 @@ namespace StarterAssets
         private void Move()
         {
             // set target speed based on move speed, sprint speed and if sprint is pressed
-            float targetSpeed = _input.sprint ? SprintSpeed : MoveSpeed;
 
+
+
+
+            // R key code: added if player clicks shift and is not regenerating
+            float targetSpeed = _input.sprint && !isRegenerating ? SprintSpeed : MoveSpeed;
+
+            // if stamina is not 0, player clicks shift and doesnt regenerate, he loses stamina
+            if (stamina > 0)
+            {
+                if (_input.sprint && !isRegenerating)
+                {
+                    stamina -= Time.deltaTime;
+                }
+
+                // if player stops running
+                if (!_input.sprint && stamina < maxStamina)
+                {
+                    stamina += Time.deltaTime;
+                }                
+            }
+            // if stamina is less than 0
+            else
+            {
+                isRegenerating = true;
+            }
+
+            // if stamina is not at max, and is regenerating
+            if (isRegenerating)
+            {
+                if (stamina <= maxStamina)
+                {
+                    stamina += Time.deltaTime;
+                }
+                else
+                {
+                    isRegenerating = false;
+                }
+            }
+
+            // I AM SO SORRY FOR MESSY CODE PLEASE FORGIVE ME (R key  AKA: JakubZielinskii)
+            
+
+
+
+                
             // a simplistic acceleration and deceleration designed to be easy to remove, replace, or iterate upon
 
             // note: Vector2's == operator uses approximation so is not floating point error prone, and is cheaper than magnitude
