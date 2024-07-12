@@ -144,6 +144,13 @@ namespace StarterAssets
 
         private void Start()
         {
+
+            // stuff i added :D
+            stamina = maxStamina;
+
+
+
+
             _cinemachineTargetYaw = CinemachineCameraTarget.transform.rotation.eulerAngles.y;
             
             _hasAnimator = TryGetComponent(out _animator);
@@ -234,13 +241,14 @@ namespace StarterAssets
             // if stamina is not 0, player clicks shift and doesnt regenerate, he loses stamina
             if (stamina > 0)
             {
-                if (_input.sprint && !isRegenerating)
+                // if sprints, no regenerating and if players velocity in any direction is smaller than .1f
+                if (_input.sprint && !isRegenerating && _controller.velocity.magnitude >= .1f)
                 {
                     stamina -= Time.deltaTime;
                 }
 
                 // if player stops running
-                if (!_input.sprint && stamina < maxStamina)
+                if (stamina < maxStamina && _controller.velocity.magnitude <= .1f)
                 {
                     stamina += Time.deltaTime;
                 }                
