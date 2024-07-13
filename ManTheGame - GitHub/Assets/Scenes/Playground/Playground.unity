@@ -714,7 +714,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8063073397250431797, guid: f0271df749728104eac22c3d897fd8ce, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 0.091
       objectReference: {fileID: 0}
     - target: {fileID: 8063073397250431797, guid: f0271df749728104eac22c3d897fd8ce, type: 3}
       propertyPath: m_LocalPosition.y
@@ -2099,6 +2099,8 @@ MonoBehaviour:
   healthText: {fileID: 579567938}
   leftStaminaSlider: {fileID: 1132596056}
   rightStaminaSlider: {fileID: 757783257}
+  colorRed: {r: 0.8773585, g: 0.24417053, b: 0.24417053, a: 1}
+  colorWhite: {r: 0.8962264, g: 0.8962264, b: 0.8962264, a: 1}
 --- !u!1001 &1979352518
 PrefabInstance:
   m_ObjectHideFlags: 0

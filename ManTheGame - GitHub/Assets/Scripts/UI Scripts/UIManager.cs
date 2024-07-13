@@ -22,11 +22,13 @@ public class UIManager : MonoBehaviour
     public Slider leftStaminaSlider;
     public Slider rightStaminaSlider;
 
-
+    public Color colorRed;
+    public Color colorWhite;
 
     // other
     private ThirdPersonController playerController;
-    private bool canFade;
+    [HideInInspector] private bool canFade;
+    [HideInInspector] private bool fadeColor;
 
     void Awake()
     {
@@ -34,7 +36,9 @@ public class UIManager : MonoBehaviour
 
         leftStaminaSlider.maxValue = playerController.maxStamina;
         rightStaminaSlider.maxValue = playerController.maxStamina;
+
         canFade = false;
+        fadeColor = false;
     }
 
     void Update()
@@ -46,9 +50,11 @@ public class UIManager : MonoBehaviour
         // it will look like:  health / maxHealth
         healthText.GetComponent<TMP_Text>().text = health.ToString() + '/' + maxHealth.ToString();
         
+
         // CHANGE IF NEEDED
         if(health > maxHealth) health = maxHealth;
 
+        // applying stamina value
         leftStaminaSlider.value = playerController.stamina;
         rightStaminaSlider.value = playerController.stamina;
 
@@ -61,6 +67,8 @@ public class UIManager : MonoBehaviour
             // start animation
             StartCoroutine(SmoothFadeStamina(.5f, true));
         }
+
+
         else if (playerController.stamina < playerController.maxStamina && !canFade)
         {
             canFade = true;
@@ -68,7 +76,23 @@ public class UIManager : MonoBehaviour
             StartCoroutine(SmoothFadeStamina(.5f, false));
         }
 
+        if (playerController.isRegenerating && !fadeColor)
+        {
+            fadeColor = true;
+
+            StartCoroutine(FadeColorStamina(colorRed, .5f));
+        }
+        if (!playerController.isRegenerating && !fadeColor)
+        {
+            fadeColor = true;
+
+            StartCoroutine(FadeColorStamina(colorWhite, .5f));
+        }
+
     }
+
+
+
     IEnumerator SmoothFadeStamina (float timeFading, bool isFading)
     {
         // that is required for that smooth animation
@@ -96,8 +120,27 @@ public class UIManager : MonoBehaviour
             leftStaminaFill.CrossFadeAlpha(1, timeFading, true);
             rightStaminaFill.CrossFadeAlpha(1, timeFading, true);
         }
-       
+
         yield return new WaitForSeconds(timeFading);
         canFade = false;
+    }
+
+    // Used to fade fill color of stamina bar
+    IEnumerator FadeColorStamina (Color colorToApply, float duration)
+    {
+
+        Image leftStaminaBackground = leftStaminaSlider.transform.GetChild(0).GetComponent<Image>();
+        Image rightStaminaBackground = rightStaminaSlider.transform.GetChild(0).GetComponent<Image>();
+
+        Image leftStaminaFill = leftStaminaSlider.transform.GetChild(1).transform.GetChild(0).GetComponent<Image>();
+        Image rightStaminaFill = rightStaminaSlider.transform.GetChild(1).transform.GetChild(0).GetComponent<Image>();
+
+        
+
+        leftStaminaFill.CrossFadeColor(colorToApply, duration, true, true);
+        rightStaminaFill.CrossFadeColor(colorToApply, duration, true, true);
+
+        yield return new WaitForSeconds(duration);
+        fadeColor = false;
     }
 }
