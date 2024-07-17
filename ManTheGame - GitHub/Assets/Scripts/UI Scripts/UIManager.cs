@@ -1,6 +1,5 @@
 using StarterAssets;
 using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -11,8 +10,8 @@ public class UIManager : MonoBehaviour
     // will be a variable in player script
 
     // for now its 100/100
-     public int health;
-     public int maxHealth;
+    public int health;
+    public int maxHealth;
 
     // health UI
     public Slider healthSlider;
@@ -27,21 +26,22 @@ public class UIManager : MonoBehaviour
 
     // other
     private ThirdPersonController playerController;
-    [HideInInspector] private bool canFade;
-    [HideInInspector] private bool fadeColor;
+    public bool IsFading;
+    public bool isChangingColor;
+    public bool isTransparent;
 
-    void Awake()
+    void Awake ()
     {
         playerController = FindObjectOfType<ThirdPersonController>();
 
         leftStaminaSlider.maxValue = playerController.maxStamina;
         rightStaminaSlider.maxValue = playerController.maxStamina;
 
-        canFade = false;
-        fadeColor = false;
+        IsFading = false;
+        isChangingColor = false;
     }
 
-    void Update()
+    void Update ()
     {
         // sets slider value and maxValue to health
         healthSlider.GetComponent<Slider>().value = health;
@@ -49,42 +49,52 @@ public class UIManager : MonoBehaviour
 
         // it will look like:  health / maxHealth
         healthText.GetComponent<TMP_Text>().text = health.ToString() + '/' + maxHealth.ToString();
-        
+
 
         // CHANGE IF NEEDED
-        if(health > maxHealth) health = maxHealth;
+        if (health > maxHealth)
+            health = maxHealth;
 
         // applying stamina value
         leftStaminaSlider.value = playerController.stamina;
         rightStaminaSlider.value = playerController.stamina;
 
+        
+
+
 
         // Fading in animation if statement
-        if (playerController.stamina >= playerController.maxStamina && !canFade)
+        if (playerController.stamina >= playerController.maxStamina && !IsFading)
         {
-            canFade = true;
+            IsFading = true;
 
             // start animation
             StartCoroutine(SmoothFadeStamina(.5f, true));
         }
 
 
-        else if (playerController.stamina < playerController.maxStamina && !canFade)
+        else if (!IsFading && isTransparent)
         {
-            canFade = true;
+            IsFading = true;
 
             StartCoroutine(SmoothFadeStamina(.5f, false));
         }
 
-        if (playerController.isRegenerating && !fadeColor)
-        {
-            fadeColor = true;
 
-            StartCoroutine(FadeColorStamina(colorRed, .5f));
-        }
-        if (!playerController.isRegenerating && !fadeColor)
+
+
+
+        // Fade color stamina logic 
+        if (playerController.isRegenerating && !isChangingColor && !isTransparent)
         {
-            fadeColor = true;
+            isChangingColor = true;
+            Debug.Log("imma put some red shit rn :fire_emoji:");
+            StartCoroutine(FadeColorStamina(colorRed, .5f));
+            
+        }
+        else if (!playerController.isRegenerating && !isChangingColor && !isTransparent)
+        {
+            isChangingColor = true;
 
             StartCoroutine(FadeColorStamina(colorWhite, .5f));
         }
@@ -93,7 +103,7 @@ public class UIManager : MonoBehaviour
 
 
 
-    IEnumerator SmoothFadeStamina (float timeFading, bool isFading)
+    IEnumerator SmoothFadeStamina (float timeFading, bool isFadingIn)
     {
         // that is required for that smooth animation
         Image leftStaminaBackground = leftStaminaSlider.transform.GetChild(0).GetComponent<Image>();
@@ -104,13 +114,14 @@ public class UIManager : MonoBehaviour
 
 
         // if its supposed to fade out, else fade in
-        if (isFading)
+        if (isFadingIn)
         {
             leftStaminaBackground.CrossFadeAlpha(0, timeFading, true);
             rightStaminaBackground.CrossFadeAlpha(0, timeFading, true);
 
             leftStaminaFill.CrossFadeAlpha(0, timeFading, true);
             rightStaminaFill.CrossFadeAlpha(0, timeFading, true);
+            isTransparent = true;
         }
         else
         {
@@ -119,28 +130,25 @@ public class UIManager : MonoBehaviour
 
             leftStaminaFill.CrossFadeAlpha(1, timeFading, true);
             rightStaminaFill.CrossFadeAlpha(1, timeFading, true);
+            isTransparent = false;
         }
 
         yield return new WaitForSeconds(timeFading);
-        canFade = false;
+        IsFading = false;
     }
 
     // Used to fade fill color of stamina bar
     IEnumerator FadeColorStamina (Color colorToApply, float duration)
     {
-
-        Image leftStaminaBackground = leftStaminaSlider.transform.GetChild(0).GetComponent<Image>();
-        Image rightStaminaBackground = rightStaminaSlider.transform.GetChild(0).GetComponent<Image>();
-
         Image leftStaminaFill = leftStaminaSlider.transform.GetChild(1).transform.GetChild(0).GetComponent<Image>();
         Image rightStaminaFill = rightStaminaSlider.transform.GetChild(1).transform.GetChild(0).GetComponent<Image>();
 
-        
+
 
         leftStaminaFill.CrossFadeColor(colorToApply, duration, true, true);
         rightStaminaFill.CrossFadeColor(colorToApply, duration, true, true);
 
         yield return new WaitForSeconds(duration);
-        fadeColor = false;
+        isChangingColor = false;
     }
 }

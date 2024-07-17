@@ -239,16 +239,16 @@ namespace StarterAssets
             float targetSpeed = _input.sprint && !isRegenerating ? SprintSpeed : MoveSpeed;
 
             // if stamina is not 0, player clicks shift and doesnt regenerate, he loses stamina
-            if (stamina > 0)
+            if (stamina > 0 && !isRegenerating)
             {
                 // if sprints, no regenerating and if players velocity in any direction is smaller than .1f
-                if (_input.sprint && !isRegenerating && _controller.velocity.magnitude >= .1f)
+                if (_input.sprint && !isRegenerating && _controller.velocity.magnitude >= 1)
                 {
                     stamina -= Time.deltaTime;
                 }
 
                 // if player stops running
-                if (stamina < maxStamina && _controller.velocity.magnitude <= .1f)
+                if (stamina < maxStamina && _controller.velocity.magnitude <= 1)
                 {
                     stamina += Time.deltaTime;
                 }                
