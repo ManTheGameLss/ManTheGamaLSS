@@ -1,6 +1,7 @@
 using StarterAssets;
 using System.Collections;
 using TMPro;
+using UnityEditor.Media;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,24 +9,36 @@ public class UIManager : MonoBehaviour
 {
     // Hide later in inspector because health and max health
     // will be a variable in player script
-
+    // health UI
+    [Header("health UI")]
     // for now its 100/100
     public int health;
     public int maxHealth;
 
-    // health UI
-    public Slider healthSlider;
+    
+    public Image healthBar;
     public TMP_Text healthText;
 
+    public float lerpSpeed = 1;
+
+    public Color health1Color;
+    public Color health2Color;
+
+    [Space]
+    [Header("Stamina UI")]
     // stamina UI
     public Slider leftStaminaSlider;
     public Slider rightStaminaSlider;
 
-    public Color colorRed;
-    public Color colorWhite;
 
-    // other
+    public Color stamina1Color;
+    public Color stamina2Color;    
+
+       
     private ThirdPersonController playerController;
+
+    [Space]
+    [Header("Other Important stuff")]
     public bool IsFading;
     public bool isChangingColor;
     public bool isTransparent;
@@ -43,9 +56,20 @@ public class UIManager : MonoBehaviour
 
     void Update ()
     {
-        // sets slider value and maxValue to health
-        healthSlider.GetComponent<Slider>().value = health;
-        healthSlider.GetComponent<Slider>().maxValue = maxHealth;
+
+        // makes sick lerping
+        float _lerpSpeed = lerpSpeed * Time.deltaTime;
+        float amountToFill = (float)health / (float)maxHealth;
+
+        healthBar.fillAmount = Mathf.Lerp(healthBar.fillAmount, amountToFill, _lerpSpeed);
+
+
+        // makes sick Colors  (yea i dont know how to name it xD)
+
+        Color color = Color.Lerp(health2Color, health1Color, amountToFill);
+
+        healthBar.color = color;
+        
 
         // it will look like:  health / maxHealth
         healthText.GetComponent<TMP_Text>().text = health.ToString() + '/' + maxHealth.ToString();
@@ -53,7 +77,10 @@ public class UIManager : MonoBehaviour
 
         // CHANGE IF NEEDED
         if (health > maxHealth)
+        {
             health = maxHealth;
+        }
+            
 
         // applying stamina value
         leftStaminaSlider.value = playerController.stamina;
@@ -89,14 +116,39 @@ public class UIManager : MonoBehaviour
         {
             isChangingColor = true;
             Debug.Log("imma put some red shit rn :fire_emoji:");
-            StartCoroutine(FadeColorStamina(colorRed, .5f));
+            StartCoroutine(FadeColorStamina(stamina2Color, .5f));
             
         }
         else if (!playerController.isRegenerating && !isChangingColor && !isTransparent)
         {
             isChangingColor = true;
 
-            StartCoroutine(FadeColorStamina(colorWhite, .5f));
+            StartCoroutine(FadeColorStamina(stamina1Color, .5f));
+        }
+
+
+        // Damaging the player
+
+        // WARNING: REMOVE LATER IN DEVELOPMENT
+
+        if (Input.GetKeyDown(KeyCode.K))
+        {
+            DamageOnPurpose(5);
+        }
+
+        if (Input.GetKeyDown(KeyCode.L))
+        {
+            DamageOnPurpose(50);
+        }
+
+        if (Input.GetKeyDown(KeyCode.O))
+        {
+            DamageOnPurpose(-20);
+        }
+
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            DamageOnPurpose(-50);
         }
 
     }
@@ -150,5 +202,9 @@ public class UIManager : MonoBehaviour
 
         yield return new WaitForSeconds(duration);
         isChangingColor = false;
+    }
+    public void DamageOnPurpose (int healthAmount)
+    {
+        health -= healthAmount;
     }
 }
