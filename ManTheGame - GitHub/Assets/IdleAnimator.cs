@@ -18,6 +18,8 @@ public class IdleAnimator : MonoBehaviour
     bool behindSprite;
 
     public float generalAngle;
+    public float cameraAngleFloat;
+    public float spriteAngleFloat;
 
     // Start is called before the first frame update
     void Start()
@@ -128,6 +130,10 @@ public class IdleAnimator : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //the next 2 lines are just a test
+        cameraAngleFloat = cameraAngle.rotation.y;
+        spriteAngleFloat = spriteAngle.rotation.y;
+
         //the difference between the camera y rotation and the sprite y rotation is calculated and called "generalAngle"
         generalAngle = cameraAngle.rotation.y - spriteAngle.rotation.y;
 
