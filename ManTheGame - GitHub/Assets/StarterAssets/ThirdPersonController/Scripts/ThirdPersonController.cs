@@ -16,12 +16,15 @@ namespace StarterAssets
     public class ThirdPersonController : MonoBehaviour
     {
         // ADD YOUR VARIABLES HERE
-
-        
+       
         [HideInInspector] public bool isRegenerating;
         [Header("Variables made by devs")]
         public float stamina;
         public float maxStamina;
+
+        private UIManager uiManager;
+
+
 
         [Space]
         [Header("Player")]
@@ -140,6 +143,7 @@ namespace StarterAssets
             {
                 _mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
             }
+            uiManager = FindObjectOfType<UIManager>();
         }
 
         private void Start()
@@ -209,8 +213,8 @@ namespace StarterAssets
 
         private void CameraRotation()
         {
-            // if there is an input and camera position is not fixed
-            if (_input.look.sqrMagnitude >= _threshold && !LockCameraPosition)
+            // if there is an input and camera position is not fixed, and pause is not active
+            if (_input.look.sqrMagnitude >= _threshold && !LockCameraPosition && !uiManager.isPauseActive)
             {
                 //Don't multiply mouse input by Time.deltaTime;
                 float deltaTimeMultiplier = IsCurrentDeviceMouse ? 1.0f : Time.deltaTime;
@@ -234,9 +238,16 @@ namespace StarterAssets
 
 
 
-
+            float targetSpeed = 0;
             // R key code: added if player clicks shift and is not regenerating
-            float targetSpeed = _input.sprint && !isRegenerating ? SprintSpeed : MoveSpeed;
+            if (!uiManager.isPauseActive)
+            {
+                targetSpeed = _input.sprint && !isRegenerating ? SprintSpeed : MoveSpeed;
+            }
+            else
+            {
+                targetSpeed = 0;
+            }
 
             // if stamina is not 0, player clicks shift and doesnt regenerate, he loses stamina
             if (stamina > 0 && !isRegenerating)
