@@ -881,7 +881,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -50, y: -50}
+  m_AnchoredPosition: {x: -126, y: -50}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &542508511
@@ -1013,7 +1013,7 @@ MonoBehaviour:
     x: 0
     y: 0
     width: 1
-    height: 1
+    height: 0.99
 --- !u!222 &567755390
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3241,7 +3241,7 @@ MonoBehaviour:
     x: 0
     y: 0
     width: 1
-    height: 1
+    height: 0.99
 --- !u!222 &1648950255
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3747,6 +3747,7 @@ MonoBehaviour:
   rightStaminaSlider: {fileID: 757783257}
   stamina1Color: {r: 0.8207547, g: 0.8207547, b: 0.8207547, a: 1}
   stamina2Color: {r: 0.9245283, g: 0, b: 0, a: 1}
+  pauseMenu: {fileID: 625883691}
   IsFading: 0
   isChangingColor: 0
   isTransparent: 0

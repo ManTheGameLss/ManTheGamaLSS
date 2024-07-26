@@ -3,12 +3,14 @@ using System.Collections;
 using TMPro;
 using UnityEditor.Media;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
     // Hide later in inspector because health and max health
     // will be a variable in player script
+
     // health UI
     [Header("health UI")]
     // for now its 100/100
@@ -32,9 +34,13 @@ public class UIManager : MonoBehaviour
 
 
     public Color stamina1Color;
-    public Color stamina2Color;    
+    public Color stamina2Color;
 
-       
+    [Space]
+    [Header("Pause menu")]
+
+    public GameObject pauseMenu;
+    public bool isPauseActive;
     private ThirdPersonController playerController;
 
     [Space]
@@ -52,6 +58,8 @@ public class UIManager : MonoBehaviour
 
         IsFading = false;
         isChangingColor = false;
+
+        isPauseActive = !pauseMenu.activeSelf;
     }
 
     void Update ()
@@ -130,7 +138,7 @@ public class UIManager : MonoBehaviour
         // Damaging the player
 
         // WARNING: REMOVE LATER IN DEVELOPMENT
-
+        #region inputStuff
         if (Input.GetKeyDown(KeyCode.K))
         {
             DamageOnPurpose(5);
@@ -151,6 +159,14 @@ public class UIManager : MonoBehaviour
             DamageOnPurpose(-50);
         }
 
+        // stuff for pause Menu
+
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            PauseMenuSwitching();
+        }
+            
+        #endregion
     }
 
 
@@ -203,8 +219,27 @@ public class UIManager : MonoBehaviour
         yield return new WaitForSeconds(duration);
         isChangingColor = false;
     }
+
     public void DamageOnPurpose (int healthAmount)
     {
         health -= healthAmount;
+    }
+
+    public void PauseMenuSwitching()
+    {
+        isPauseActive = !isPauseActive;
+
+        if (isPauseActive)
+        {
+            pauseMenu.SetActive(true);
+            Cursor.lockState = CursorLockMode.Confined;
+            Cursor.visible = true;
+        }
+        else
+        {
+            pauseMenu.SetActive(false);
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+        }
     }
 }
