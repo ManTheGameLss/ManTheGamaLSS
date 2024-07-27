@@ -39,9 +39,12 @@ public class UIManager : MonoBehaviour
     [Space]
     [Header("Pause menu")]
 
+    public GameObject background;
     public GameObject pauseMenu;
     public bool isPauseActive;
     private ThirdPersonController playerController;
+
+    public GameObject settingsMenu;
 
     [Space]
     [Header("Other Important stuff")]
@@ -59,7 +62,7 @@ public class UIManager : MonoBehaviour
         IsFading = false;
         isChangingColor = false;
 
-        isPauseActive = !pauseMenu.activeSelf;
+        isPauseActive = false;
     }
 
     void Update ()
@@ -231,15 +234,26 @@ public class UIManager : MonoBehaviour
 
         if (isPauseActive)
         {
+            background.SetActive(true);
             pauseMenu.SetActive(true);
+            settingsMenu.SetActive(false);
             Cursor.lockState = CursorLockMode.Confined;
-            Cursor.visible = true;
+            Cursor.visible = true;  
         }
         else
         {
+            background.SetActive(false);
             pauseMenu.SetActive(false);
+            settingsMenu.SetActive(false);
+
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
         }
+    }
+
+    public void TurnOnSettings ()
+    {
+        settingsMenu.SetActive(true);
+        pauseMenu.SetActive(false);
     }
 }
