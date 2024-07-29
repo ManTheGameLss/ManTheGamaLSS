@@ -4100,9 +4100,15 @@ MonoBehaviour:
   cameraAngle: {fileID: 367283414}
   spriteAngle: {fileID: 1193331987}
   animator: {fileID: 1719036362}
+  frontSprite: 0
+  frontSideRight: 0
+  frontSideLeft: 0
+  sideRight: 0
+  sideLeft: 0
+  behindSideRight: 0
+  behindSideLeft: 0
+  behindSprite: 0
   generalAngle: 0
-  cameraAngleFloat: 0
-  spriteAngleFloat: 0
 --- !u!114 &1719036361
 MonoBehaviour:
   m_ObjectHideFlags: 0

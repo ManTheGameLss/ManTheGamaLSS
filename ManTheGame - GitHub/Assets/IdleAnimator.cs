@@ -32,99 +32,6 @@ public class IdleAnimator : MonoBehaviour
         behindSideLeft = false;
         behindSprite = false;
     }
-    private void CheckSpriteBools()
-    {
-        //this void makes it so that only one direction-animation is played at a time so that it doesn't show the side-sprite when your supposed to see the front one ( that was an example )
-
-        if (frontSprite)
-        {
-            frontSideRight = false;
-            frontSideLeft = false;
-            sideLeft = false;
-            behindSideRight = false;
-            behindSideLeft = false;
-            sideRight = false;
-            behindSprite = false;
-        }
-
-        if (frontSideRight)
-        {
-            frontSprite = false;
-            frontSideLeft = false;
-            sideLeft = false;
-            behindSideRight = false;
-            behindSideLeft = false;
-            sideRight = false;
-            behindSprite = false;
-        }
-
-        if (frontSideLeft)
-        {
-            frontSprite = false;
-            frontSideRight = false;
-            sideLeft = false;
-            behindSideRight = false;
-            behindSideLeft = false;
-            sideRight = false;
-            behindSprite = false;
-        }
-
-        if (sideLeft)
-        {
-            frontSprite = false;
-            frontSideRight = false;
-            frontSideLeft = false;
-            behindSideRight = false;
-            behindSideLeft = false;
-            sideRight = false;
-            behindSprite = false;
-        }
-
-        if (sideRight)
-        {
-            frontSprite = false;
-            frontSideRight = false;
-            frontSideLeft = false;
-            behindSideRight = false;
-            behindSideLeft = false;
-            sideLeft = false;
-            behindSprite = false;
-        }
-
-        if (behindSideLeft)
-        {
-            frontSprite = false;
-            frontSideRight = false;
-            frontSideLeft = false;
-            behindSideRight = false;
-            sideRight = false;
-            sideLeft = false;
-            behindSprite = false;
-        }
-
-        if (behindSideRight)
-        {
-            frontSprite = false;
-            frontSideRight = false;
-            frontSideLeft = false;
-            behindSideLeft = false;
-            sideRight = false;
-            sideLeft = false;
-            behindSprite = false;
-        }
-
-        if (behindSprite)
-        {
-            frontSprite = false;
-            frontSideRight = false;
-            frontSideLeft = false;
-            behindSideLeft = false;
-            sideRight = false;
-            sideLeft = false;
-            behindSideRight = false;
-        }
-    }
-
 
     // Update is called once per frame
     void Update()
@@ -145,7 +52,6 @@ public class IdleAnimator : MonoBehaviour
         if ((generalAngle < 22.5 && generalAngle > 0) || (generalAngle < 360 && generalAngle > 337.5))
         {
             frontSprite = true;
-            CheckSpriteBools();
         }
         else
         {
@@ -156,44 +62,41 @@ public class IdleAnimator : MonoBehaviour
 
         #endregion
 
-        #region frontSideRight
+        #region frontSideLeft
 
         if (generalAngle < 337.5 && generalAngle > 292.5)
         {
-            frontSideRight = true;
-            CheckSpriteBools();
+            frontSideLeft = true;
         }
         else
         {
-            frontSideRight = false;
+            frontSideLeft = false;
         }
 
         #endregion
 
-        #region SideRight
+        #region SideLeft
 
         if (generalAngle < 292.5 && generalAngle > 247.5)
         {
-            sideRight = true;
-            CheckSpriteBools();
+            sideLeft = true;
         }
         else
         {
-            sideRight = false;
+            sideLeft = false;
         }
 
         #endregion
 
-        #region behindSideRight
+        #region behindSideLeft
 
         if (generalAngle < 247.5 && generalAngle > 202.5)
         {
-            behindSideRight = true;
-            CheckSpriteBools();
+            behindSideLeft = true;
         }
         else
         {
-            behindSideRight = false;
+            behindSideLeft = false;
         }
 
         #endregion
@@ -203,7 +106,6 @@ public class IdleAnimator : MonoBehaviour
         if (generalAngle < 202.5 && generalAngle > 157.5)
         {
             behindSprite = true;
-            CheckSpriteBools();
         }
         else
         {
@@ -212,48 +114,130 @@ public class IdleAnimator : MonoBehaviour
 
         #endregion
 
-        #region behindSideLeft
+        #region behindSideRight
 
         if (generalAngle < 157.5 && generalAngle > 112.5)
         {
-            behindSideLeft = true;
-            CheckSpriteBools();
+            behindSideRight = true;
         }
         else
         {
-            behindSideLeft = false;
+            behindSideRight = false;
         }
 
         #endregion
 
-        #region sideLeft
+        #region sideRight
 
         if (generalAngle < 112.5 && generalAngle > 67.5)
         {
-            sideLeft = true;
-            CheckSpriteBools();
+            sideRight = true;
         }
         else
         {
-            sideLeft = false;
+            sideRight = false;
         }
 
         #endregion
 
-        #region frontSideLeft
+        #region frontSideRight
 
         if (generalAngle < 67.5 && generalAngle > 22.5)
         {
-            frontSideLeft = true;
-            CheckSpriteBools();
+            frontSideRight = true;
         }
         else
         {
-            frontSideLeft = false;
+            frontSideRight = false;
         }
 
         #endregion
 
         #endregion
+
+        SetAnimatorBools();
+    }
+
+    void SetAnimatorBools()
+    {
+        //front
+        if (frontSprite)
+        {
+            animator.SetBool("fron", true);
+        }
+        else
+        {
+            animator.SetBool("front", false);
+        }
+
+        //frontSideRight
+        if (frontSideRight)
+        {
+            animator.SetBool("frontSide_right", true);
+        }
+        else
+        {
+            animator.SetBool("frontSide_right", false);
+        }
+
+        //sideRight
+        if (sideRight)
+        {
+            animator.SetBool("side_right", true);
+        }
+        else
+        {
+            animator.SetBool("side_right", false);
+        }
+
+        //behindSideRight
+        if (behindSideRight)
+        {
+            animator.SetBool("behindSide_right", true);
+        }
+        else
+        {
+            animator.SetBool("behindSide_right", false);
+        }
+
+        //behind
+        if (behindSprite)
+        {
+            animator.SetBool("behind", true);
+        }
+        else
+        {
+            animator.SetBool("behind", false);
+        }
+
+        //behindSideLeft
+        if (behindSideLeft)
+        {
+            animator.SetBool("behindSide_left", true);
+        }
+        else
+        {
+            animator.SetBool("behindSide_left", false);
+        }
+
+        //sideLeft
+        if (sideLeft)
+        {
+            animator.SetBool("side_left", true);
+        }
+        else
+        {
+            animator.SetBool("side_left", false);
+        }
+
+        //frontSideLeft
+        if (frontSideLeft)
+        {
+            animator.SetBool("frontSide_left", true);
+        }
+        else
+        {
+            animator.SetBool("frontSide_left", false);
+        }
     }
 }
