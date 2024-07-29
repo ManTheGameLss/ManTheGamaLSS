@@ -1,3 +1,4 @@
+using StarterAssets;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,17 +8,37 @@ public class IdleAnimator : MonoBehaviour
     public Transform cameraAngle;
     public Transform spriteAngle;
     public Animator animator;
+    public ThirdPersonController thirdPersonController;
 
-    public bool frontSprite;
-    public bool frontSideRight;
-    public bool frontSideLeft;
-    public bool sideRight;
-    public bool sideLeft;
-    public bool behindSideRight;
-    public bool behindSideLeft;
-    public bool behindSprite;
+    #region IdleBools
 
-    public float generalAngle;
+    bool frontSprite;
+    bool frontSideRight;
+    bool frontSideLeft;
+    bool sideRight;
+    bool sideLeft;
+    bool behindSideRight;
+    bool behindSideLeft;
+    bool behindSprite;
+
+    #endregion
+
+    #region WalkingBools
+
+    bool walkFront;
+    bool walkFrontSideRight;
+    bool walkSideRight;
+    bool walkBehindSideRight;
+    bool walkBehind;
+    bool walkBehindSideLeft;
+    bool walkSideLeft;
+    bool walkFrontSideLeft;
+
+    #endregion
+
+    float generalAngle;
+    bool playerIsMoving;
+    bool playerIsInAir;
    
 
     // Start is called before the first frame update
@@ -35,6 +56,14 @@ public class IdleAnimator : MonoBehaviour
 
     // Update is called once per frame
     void Update()
+    {
+        GetIdleRotations();
+        SetAnimatorBools();
+        CheckIfMovingOrInAir();
+        GetWalkingRotations();
+    }
+
+    void GetIdleRotations()
     {
         //the difference between the camera y rotation and the sprite y rotation is calculated and called "generalAngle"
         generalAngle = cameraAngle.rotation.eulerAngles.y - spriteAngle.rotation.eulerAngles.y;
@@ -57,7 +86,7 @@ public class IdleAnimator : MonoBehaviour
         {
             frontSprite = false;
         }
-        
+
         #endregion
 
         #endregion
@@ -155,11 +184,78 @@ public class IdleAnimator : MonoBehaviour
 
         #endregion
 
-        SetAnimatorBools();
     }
 
+    void CheckIfMovingOrInAir()
+    {
+        if (thirdPersonController.isMoving)
+        {
+            playerIsMoving = true;
+        }
+        else
+        {
+            playerIsMoving = false;
+        }
+
+        if (!thirdPersonController.Grounded)
+        {
+            playerIsInAir = true;
+        }
+        else
+        {
+            playerIsInAir = false;
+        }
+    }
+
+    void GetWalkingRotations()
+    {
+        #region front
+
+        if (playerIsMoving && frontSprite && !playerIsInAir)
+        {
+            walkFront = true;
+        }
+        else
+        {
+            walkFront = false;
+        }
+
+        #endregion
+
+        #region frontSideRight
+
+        #endregion
+
+        #region sideRight
+
+        #endregion
+
+        #region behindSideRight
+
+        #endregion
+
+        #region behind
+
+        #endregion
+
+        #region behindSideLeft
+
+        #endregion
+
+        #region sideLeft
+
+        #endregion
+
+        #region frontSideLeft
+
+        #endregion
+
+
+    }
     void SetAnimatorBools()
     {
+        #region Idle
+
         //front
         if (frontSprite)
         {
@@ -239,5 +335,7 @@ public class IdleAnimator : MonoBehaviour
         {
             animator.SetBool("frontSide_left", false);
         }
+
+        #endregion
     }
 }

@@ -4100,15 +4100,7 @@ MonoBehaviour:
   cameraAngle: {fileID: 367283414}
   spriteAngle: {fileID: 1193331987}
   animator: {fileID: 1719036362}
-  frontSprite: 0
-  frontSideRight: 0
-  frontSideLeft: 0
-  sideRight: 0
-  sideLeft: 0
-  behindSideRight: 0
-  behindSideLeft: 0
-  behindSprite: 0
-  generalAngle: 0
+  thirdPersonController: {fileID: 0}
 --- !u!114 &1719036361
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5628,6 +5620,10 @@ PrefabInstance:
     - target: {fileID: 7898439671699593946, guid: 64dce48905ffd9b4293e595fa6941544, type: 3}
       propertyPath: m_LocalRotation.z
       value: -0.012563185
+      objectReference: {fileID: 0}
+    - target: {fileID: 8002264680419333305, guid: 64dce48905ffd9b4293e595fa6941544, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.73
       objectReference: {fileID: 0}
     - target: {fileID: 8059383712415915891, guid: 64dce48905ffd9b4293e595fa6941544, type: 3}
       propertyPath: m_LocalPosition.x

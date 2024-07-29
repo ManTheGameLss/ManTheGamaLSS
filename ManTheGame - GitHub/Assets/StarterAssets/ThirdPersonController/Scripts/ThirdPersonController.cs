@@ -16,6 +16,8 @@ namespace StarterAssets
     public class ThirdPersonController : MonoBehaviour
     {
         // ADD YOUR VARIABLES HERE
+        [Header("TheCreatorVariables")]
+        public bool isMoving;
        
         [HideInInspector] public bool isRegenerating;
         [Header("Variables made by devs")]
@@ -24,7 +26,7 @@ namespace StarterAssets
 
         private UIManager uiManager;
 
-
+        
 
         [Space]
         [Header("Player")]
@@ -343,6 +345,20 @@ namespace StarterAssets
             // move the player
             _controller.Move(targetDirection.normalized * (_speed * Time.deltaTime) +
                              new Vector3(0.0f, _verticalVelocity, 0.0f) * Time.deltaTime);
+
+            #region TheCreator Code
+
+            //check if player moves
+            if (targetSpeed == 0.0f)
+            {
+                isMoving = false;
+            }
+            else
+            {
+                isMoving = true;
+            }
+
+            #endregion
 
             // update animator if using character
             if (_hasAnimator)
