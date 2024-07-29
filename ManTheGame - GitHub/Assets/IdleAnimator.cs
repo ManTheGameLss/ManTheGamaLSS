@@ -163,7 +163,7 @@ public class IdleAnimator : MonoBehaviour
         //front
         if (frontSprite)
         {
-            animator.SetBool("fron", true);
+            animator.SetBool("front", true);
         }
         else
         {
