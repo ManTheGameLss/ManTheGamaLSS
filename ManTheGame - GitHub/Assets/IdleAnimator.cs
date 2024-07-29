@@ -25,7 +25,7 @@ public class IdleAnimator : MonoBehaviour
 
     #region WalkingBools
 
-    bool walkFront;
+    public bool walkFront;
     bool walkFrontSideRight;
     bool walkSideRight;
     bool walkBehindSideRight;
@@ -37,8 +37,9 @@ public class IdleAnimator : MonoBehaviour
     #endregion
 
     float generalAngle;
-    bool playerIsMoving;
+    public bool playerIsMoving;
     bool playerIsInAir;
+    bool noIdle;
    
 
     // Start is called before the first frame update
@@ -188,7 +189,7 @@ public class IdleAnimator : MonoBehaviour
 
     void CheckIfMovingOrInAir()
     {
-        if (thirdPersonController.isMoving)
+        if (thirdPersonController.isMoving == true)
         {
             playerIsMoving = true;
         }
@@ -197,7 +198,7 @@ public class IdleAnimator : MonoBehaviour
             playerIsMoving = false;
         }
 
-        if (!thirdPersonController.Grounded)
+        if (!thirdPersonController.Grounded == true )
         {
             playerIsInAir = true;
         }
@@ -211,13 +212,15 @@ public class IdleAnimator : MonoBehaviour
     {
         #region front
 
-        if (playerIsMoving && frontSprite && !playerIsInAir)
+        if ((playerIsMoving && frontSprite && !playerIsInAir) || (playerIsMoving && noIdle && !playerIsInAir))
         {
+            noIdle = true;
             walkFront = true;
         }
         else
         {
             walkFront = false;
+            noIdle = false;
         }
 
         #endregion

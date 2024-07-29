@@ -4100,7 +4100,9 @@ MonoBehaviour:
   cameraAngle: {fileID: 367283414}
   spriteAngle: {fileID: 1193331987}
   animator: {fileID: 1719036362}
-  thirdPersonController: {fileID: 0}
+  thirdPersonController: {fileID: 1762682261}
+  walkFront: 0
+  playerIsMoving: 0
 --- !u!114 &1719036361
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5866,6 +5868,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1762682261 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4416926081852918490, guid: 64dce48905ffd9b4293e595fa6941544, type: 3}
+  m_PrefabInstance: {fileID: 1762682258}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 26e54e5a728a9234ab24fcf1460ed8a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1764214107
