@@ -36,11 +36,18 @@ public class IdleAnimator : MonoBehaviour
 
     #endregion
 
+    #region ThirdPersonControllerBools
+
     float generalAngle;
     public bool playerIsMoving;
     bool playerIsInAir;
     bool noIdle;
-   
+
+    //stops the camera rotation (this is intended for future development)
+    public bool stopBecauseYes;
+
+    #endregion
+
 
     // Start is called before the first frame update
     void Start()
@@ -60,8 +67,21 @@ public class IdleAnimator : MonoBehaviour
     {
         GetIdleRotations();
         SetAnimatorBools();
-        CheckIfMovingOrInAir();
+        CheckTPCBools();
         GetWalkingRotations();
+        LockCamera();
+    }
+
+    void LockCamera()
+    {
+        if (playerIsInAir)
+        {
+            stopBecauseYes = true;
+        }
+        else
+        {
+            stopBecauseYes = false;
+        }
     }
 
     void GetIdleRotations()
@@ -187,8 +207,9 @@ public class IdleAnimator : MonoBehaviour
 
     }
 
-    void CheckIfMovingOrInAir()
+    void CheckTPCBools()
     {
+        //checks if the player is moving
         if (thirdPersonController.isMoving == true)
         {
             playerIsMoving = true;
@@ -198,6 +219,7 @@ public class IdleAnimator : MonoBehaviour
             playerIsMoving = false;
         }
 
+        //checks if the player is in air
         if (!thirdPersonController.Grounded == true )
         {
             playerIsInAir = true;
@@ -205,6 +227,16 @@ public class IdleAnimator : MonoBehaviour
         else
         {
             playerIsInAir = false;
+        }
+
+        //stops the camera rotation
+        if (stopBecauseYes)
+        {
+            thirdPersonController.LockCameraPosition = true;
+        }
+        else
+        {
+            thirdPersonController.LockCameraPosition = false;
         }
     }
 
@@ -227,29 +259,106 @@ public class IdleAnimator : MonoBehaviour
 
         #region frontSideRight
 
+        if ((playerIsMoving && frontSideRight && !playerIsInAir) || (playerIsMoving && noIdle && !playerIsInAir))
+        {
+            noIdle = true;
+            walkFrontSideRight = true;
+        }
+        else
+        {
+            walkFrontSideRight = false;
+            noIdle = false;
+        }
+
         #endregion
 
         #region sideRight
+
+        if ((playerIsMoving && sideRight && !playerIsInAir) || (playerIsMoving && noIdle && !playerIsInAir))
+        {
+            noIdle = true;
+            walkSideRight = true;
+        }
+        else
+        {
+            walkSideRight = false;
+            noIdle = false;
+        }
 
         #endregion
 
         #region behindSideRight
 
+        if ((playerIsMoving && behindSideRight && !playerIsInAir) || (playerIsMoving && noIdle && !playerIsInAir))
+        {
+            noIdle = true;
+            walkBehindSideRight = true;
+        }
+        else
+        {
+            walkBehindSideRight = false;
+            noIdle = false;
+        }
+
         #endregion
 
         #region behind
+
+        if ((playerIsMoving && behindSprite && !playerIsInAir) || (playerIsMoving && noIdle && !playerIsInAir))
+        {
+            noIdle = true;
+            walkBehind = true;
+        }
+        else
+        {
+            walkBehind = false;
+            noIdle = false;
+        }
 
         #endregion
 
         #region behindSideLeft
 
+        if ((playerIsMoving && behindSideLeft && !playerIsInAir) || (playerIsMoving && noIdle && !playerIsInAir))
+        {
+            noIdle = true;
+            walkBehindSideLeft = true;
+        }
+        else
+        {
+            walkBehindSideLeft = false;
+            noIdle = false;
+        }
+
         #endregion
 
         #region sideLeft
 
+        if ((playerIsMoving && sideLeft && !playerIsInAir) || (playerIsMoving && noIdle && !playerIsInAir))
+        {
+            noIdle = true;
+            walkSideLeft = true;
+        }
+        else
+        {
+            walkSideLeft = false;
+            noIdle = false;
+        }
+
         #endregion
 
         #region frontSideLeft
+
+        if ((playerIsMoving && frontSideLeft && !playerIsInAir) || (playerIsMoving && noIdle && !playerIsInAir))
+        {
+            noIdle = true;
+            walkFrontSideLeft = true;
+        }
+        else
+        {
+            walkFrontSideLeft = false;
+            noIdle = false;
+        }
 
         #endregion
 
