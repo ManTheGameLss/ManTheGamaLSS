@@ -243,8 +243,8 @@ public class IdleAnimator : MonoBehaviour
     void GetWalkingRotations()
     {
         #region front
-
-        if ((playerIsMoving && frontSprite && !playerIsInAir) || (playerIsMoving && noIdle && !playerIsInAir))
+        //DEVI CREARE UN BOOL CHIAMATO "ALLOW WALK..." PER OGNI DIREZIONE. IL BOOL SERVIRà COME CONDIZIONE IN MODO DA POTER DETECTARE SE BISOGNA FARE L'ANIMAZIONE DI AVANTI O ALTRE DIREZIONI MA NON ATTIVARE I BOOL IDLE COSì CHE NON RENDERIZZINO GLI IDLE SPRITE
+        if ((playerIsMoving && frontSprite && !playerIsInAir) || (playerIsMoving && noIdle && !playerIsInAir && walkFront && frontSprite))
         {
             noIdle = true;
             walkFront = true;
