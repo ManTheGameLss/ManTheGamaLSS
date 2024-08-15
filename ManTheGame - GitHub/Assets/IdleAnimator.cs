@@ -10,6 +10,28 @@ public class IdleAnimator : MonoBehaviour
     public Animator animator;
     public ThirdPersonController thirdPersonController;
 
+    #region State Bools
+
+    bool idle;
+    bool walking;
+    bool inAir;
+    bool attacking;
+
+    #endregion
+
+    #region SideBools
+
+    bool sideFront;
+    bool sideBack;
+    bool sideFrontSideRight;
+    bool sideBackSideLeft;
+    bool sideFrontSideLeft;
+    bool sideBackSideRight;
+    bool sideSideRight;
+    bool sideSideLeft;
+
+    #endregion
+
     #region IdleBools
 
     bool frontSprite;
@@ -70,21 +92,57 @@ public class IdleAnimator : MonoBehaviour
         CheckTPCBools();
         GetWalkingRotations();
         LockCamera();
+        GetGeneralRotations();
+        GetStates();
     }
 
-    void LockCamera()
+    void GetStates()
     {
-        if (playerIsInAir)
+        #region Idle
+
+        if (!playerIsInAir && !playerIsMoving && !noIdle)
         {
-            stopBecauseYes = true;
+            idle = true;
         }
         else
         {
-            stopBecauseYes = false;
+            idle = false;
         }
+
+        #endregion
+
+        #region Walking
+
+        if (!playerIsInAir && playerIsMoving && noIdle)
+        {
+            walking = true;
+        }
+        else
+        {
+            walking = false;
+        }
+
+        #endregion
+
+        #region In Air
+
+        if (playerIsInAir)
+        {
+            inAir = true;
+        }
+        else
+        {
+            inAir = false;
+        }
+
+        #endregion
+
+        #region Attacking
+
+        #endregion
     }
 
-    void GetIdleRotations()
+    void GetGeneralRotations()
     {
         //the difference between the camera y rotation and the sprite y rotation is calculated and called "generalAngle"
         generalAngle = cameraAngle.rotation.eulerAngles.y - spriteAngle.rotation.eulerAngles.y;
@@ -101,11 +159,11 @@ public class IdleAnimator : MonoBehaviour
         //in this case, if generalAngle is a number between 23 and -23 it meens that you're watching the sprite from the front and renders the front-sprite
         if ((generalAngle < 22.5 && generalAngle > 0) || (generalAngle < 360 && generalAngle > 337.5))
         {
-            frontSprite = true;
+            sideFront = true;
         }
         else
         {
-            frontSprite = false;
+            sideFront = false;
         }
 
         #endregion
@@ -116,11 +174,11 @@ public class IdleAnimator : MonoBehaviour
 
         if (generalAngle < 337.5 && generalAngle > 292.5)
         {
-            frontSideLeft = true;
+            sideFrontSideLeft = true;
         }
         else
         {
-            frontSideLeft = false;
+            sideFrontSideLeft = false;
         }
 
         #endregion
@@ -129,11 +187,11 @@ public class IdleAnimator : MonoBehaviour
 
         if (generalAngle < 292.5 && generalAngle > 247.5)
         {
-            sideLeft = true;
+            sideSideLeft = true;
         }
         else
         {
-            sideLeft = false;
+            sideSideLeft = false;
         }
 
         #endregion
@@ -142,11 +200,11 @@ public class IdleAnimator : MonoBehaviour
 
         if (generalAngle < 247.5 && generalAngle > 202.5)
         {
-            behindSideLeft = true;
+            sideBackSideLeft = true;
         }
         else
         {
-            behindSideLeft = false;
+            sideBackSideLeft = false;
         }
 
         #endregion
@@ -155,11 +213,11 @@ public class IdleAnimator : MonoBehaviour
 
         if (generalAngle < 202.5 && generalAngle > 157.5)
         {
-            behindSprite = true;
+            sideBack = true;
         }
         else
         {
-            behindSprite = false;
+            sideBack = false;
         }
 
         #endregion
@@ -168,11 +226,11 @@ public class IdleAnimator : MonoBehaviour
 
         if (generalAngle < 157.5 && generalAngle > 112.5)
         {
-            behindSideRight = true;
+            sideBackSideRight = true;
         }
         else
         {
-            behindSideRight = false;
+            sideBackSideRight = false;
         }
 
         #endregion
@@ -181,11 +239,11 @@ public class IdleAnimator : MonoBehaviour
 
         if (generalAngle < 112.5 && generalAngle > 67.5)
         {
-            sideRight = true;
+            sideSideRight = true;
         }
         else
         {
-            sideRight = false;
+            sideSideRight = false;
         }
 
         #endregion
@@ -194,17 +252,147 @@ public class IdleAnimator : MonoBehaviour
 
         if (generalAngle < 67.5 && generalAngle > 22.5)
         {
-            frontSideRight = true;
+            sideFrontSideRight = true;
         }
         else
         {
-            frontSideRight = false;
+            sideFrontSideRight = false;
         }
 
         #endregion
 
         #endregion
 
+    }
+
+    void LockCamera()
+    {
+        //if (playerIsInAir)
+        //{
+          //  stopBecauseYes = true;
+        //}
+        //else
+        //{
+          //  stopBecauseYes = false;
+        //}
+    }
+
+    void GetIdleRotations()
+    {
+        if (idle)
+        {
+            #region directions
+
+            #region Front
+
+            #region Example
+
+            if (sideFront)
+            {
+                frontSprite = true;
+            }
+            else
+            {
+                frontSprite = false;
+            }
+
+            #endregion
+
+            #endregion
+
+            #region frontSideLeft
+
+            if (sideFrontSideLeft)
+            {
+                frontSideLeft = true;
+            }
+            else
+            {
+                frontSideLeft = false;
+            }
+
+            #endregion
+
+            #region SideLeft
+
+            if (sideSideLeft)
+            {
+                sideLeft = true;
+            }
+            else
+            {
+                sideLeft = false;
+            }
+
+            #endregion
+
+            #region behindSideLeft
+
+            if (sideBackSideLeft)
+            {
+                behindSideLeft = true;
+            }
+            else
+            {
+                behindSideLeft = false;
+            }
+
+            #endregion
+
+            #region Behind
+
+            if (sideBack)
+            {
+                behindSprite = true;
+            }
+            else
+            {
+                behindSprite = false;
+            }
+
+            #endregion
+
+            #region behindSideRight
+
+            if (sideBackSideRight)
+            {
+                behindSideRight = true;
+            }
+            else
+            {
+                behindSideRight = false;
+            }
+
+            #endregion
+
+            #region sideRight
+
+            if (sideSideRight)
+            {
+                sideRight = true;
+            }
+            else
+            {
+                sideRight = false;
+            }
+
+            #endregion
+
+            #region frontSideRight
+
+            if (sideFrontSideRight)
+            {
+                frontSideRight = true;
+            }
+            else
+            {
+                frontSideRight = false;
+            }
+
+            #endregion
+
+            #endregion
+        }
     }
 
     void CheckTPCBools()
