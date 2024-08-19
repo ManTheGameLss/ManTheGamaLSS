@@ -47,7 +47,7 @@ public class IdleAnimator : MonoBehaviour
 
     #region WalkingBools
 
-    public bool walkFront;
+    bool walkFront;
     bool walkFrontSideRight;
     bool walkSideRight;
     bool walkBehindSideRight;
@@ -394,7 +394,6 @@ public class IdleAnimator : MonoBehaviour
             #endregion
         }
     }
-
     void CheckTPCBools()
     {
         //checks if the player is moving
@@ -430,126 +429,115 @@ public class IdleAnimator : MonoBehaviour
 
     void GetWalkingRotations()
     {
-        #region front
-        //DEVI CREARE UN BOOL CHIAMATO "ALLOW WALK..." PER OGNI DIREZIONE. IL BOOL SERVIRà COME CONDIZIONE IN MODO DA POTER DETECTARE SE BISOGNA FARE L'ANIMAZIONE DI AVANTI O ALTRE DIREZIONI MA NON ATTIVARE I BOOL IDLE COSì CHE NON RENDERIZZINO GLI IDLE SPRITE
-        if ((playerIsMoving && frontSprite && !playerIsInAir) || (playerIsMoving && noIdle && !playerIsInAir && walkFront && frontSprite))
+        if (walking)
         {
-            noIdle = true;
-            walkFront = true;
+            #region Directions
+
+            #region front
+
+            if (sideFront)
+            {
+                walkFront = true;
+            }
+            else
+            {
+                walkFront = false;
+            }
+
+            #endregion
+
+            #region frontSideRight
+
+            if (sideFrontSideRight)
+            {
+                walkFrontSideRight = true;
+            }
+            else
+            {
+                walkFrontSideRight = false;
+            }
+
+            #endregion
+
+            #region sideRight
+
+            if (sideSideRight)
+            {
+                walkSideRight = true;
+            }
+            else
+            {
+                walkSideRight = false;
+            }
+
+            #endregion
+
+            #region behindSideRight
+
+            if (sideBackSideRight)
+            {
+                walkBehindSideRight = true;
+            }
+            else
+            {
+                walkBehindSideRight = false;
+            }
+            #endregion
+
+            #region behind
+
+            if (sideBack)
+            {
+                walkBehind = true;
+            }
+            else
+            {
+                walkBehind = false;
+            }
+
+            #endregion
+
+            #region behindSideLeft
+
+            if (sideBackSideLeft)
+            {
+                walkBehindSideLeft = true;
+            }
+            else
+            {
+                walkBehindSideLeft = false;
+            }
+
+            #endregion
+
+            #region sideLeft
+
+            if (sideSideLeft)
+            {
+                walkSideLeft = true;
+            }
+            else
+            {
+                walkSideLeft = false;
+            }
+
+            #endregion
+
+            #region frontSideLeft
+
+            if (sideFrontSideLeft)
+            {
+                walkFrontSideLeft = true;
+            }
+            else
+            {
+                walkFrontSideLeft = false;
+            }
+
+            #endregion
+
+            #endregion
         }
-        else
-        {
-            walkFront = false;
-            noIdle = false;
-        }
-
-        #endregion
-
-        #region frontSideRight
-
-        if ((playerIsMoving && frontSideRight && !playerIsInAir) || (playerIsMoving && noIdle && !playerIsInAir))
-        {
-            noIdle = true;
-            walkFrontSideRight = true;
-        }
-        else
-        {
-            walkFrontSideRight = false;
-            noIdle = false;
-        }
-
-        #endregion
-
-        #region sideRight
-
-        if ((playerIsMoving && sideRight && !playerIsInAir) || (playerIsMoving && noIdle && !playerIsInAir))
-        {
-            noIdle = true;
-            walkSideRight = true;
-        }
-        else
-        {
-            walkSideRight = false;
-            noIdle = false;
-        }
-
-        #endregion
-
-        #region behindSideRight
-
-        if ((playerIsMoving && behindSideRight && !playerIsInAir) || (playerIsMoving && noIdle && !playerIsInAir))
-        {
-            noIdle = true;
-            walkBehindSideRight = true;
-        }
-        else
-        {
-            walkBehindSideRight = false;
-            noIdle = false;
-        }
-
-        #endregion
-
-        #region behind
-
-        if ((playerIsMoving && behindSprite && !playerIsInAir) || (playerIsMoving && noIdle && !playerIsInAir))
-        {
-            noIdle = true;
-            walkBehind = true;
-        }
-        else
-        {
-            walkBehind = false;
-            noIdle = false;
-        }
-
-        #endregion
-
-        #region behindSideLeft
-
-        if ((playerIsMoving && behindSideLeft && !playerIsInAir) || (playerIsMoving && noIdle && !playerIsInAir))
-        {
-            noIdle = true;
-            walkBehindSideLeft = true;
-        }
-        else
-        {
-            walkBehindSideLeft = false;
-            noIdle = false;
-        }
-
-        #endregion
-
-        #region sideLeft
-
-        if ((playerIsMoving && sideLeft && !playerIsInAir) || (playerIsMoving && noIdle && !playerIsInAir))
-        {
-            noIdle = true;
-            walkSideLeft = true;
-        }
-        else
-        {
-            walkSideLeft = false;
-            noIdle = false;
-        }
-
-        #endregion
-
-        #region frontSideLeft
-
-        if ((playerIsMoving && frontSideLeft && !playerIsInAir) || (playerIsMoving && noIdle && !playerIsInAir))
-        {
-            noIdle = true;
-            walkFrontSideLeft = true;
-        }
-        else
-        {
-            walkFrontSideLeft = false;
-            noIdle = false;
-        }
-
-        #endregion
-
 
     }
     void SetAnimatorBools()
