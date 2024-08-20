@@ -60,7 +60,7 @@ public class IdleAnimator : MonoBehaviour
 
     #region ThirdPersonControllerBools
 
-    float generalAngle;
+    public float generalAngle;
     public bool playerIsMoving;
     bool playerIsInAir;
     bool noIdle;

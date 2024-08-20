@@ -2883,8 +2883,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1193331986}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 4.99}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 4.98999}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -4101,8 +4101,9 @@ MonoBehaviour:
   spriteAngle: {fileID: 1193331987}
   animator: {fileID: 1719036362}
   thirdPersonController: {fileID: 1762682261}
-  walkFront: 0
+  generalAngle: 0
   playerIsMoving: 0
+  stopBecauseYes: 0
 --- !u!114 &1719036361
 MonoBehaviour:
   m_ObjectHideFlags: 0
