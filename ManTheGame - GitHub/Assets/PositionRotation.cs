@@ -15,7 +15,8 @@ public class PositionRotation : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.position = playerTransform.position;
-        transform.rotation = Quaternion.Euler(0f, 180f, 0f);
+        //transform.position = playerTransform.position;
+        //transform.rotation = Quaternion.Euler(0f, playerTransform.rotation.eulerAngles.y, 0f);
+        transform.rotation = playerTransform.rotation;
     }
 }

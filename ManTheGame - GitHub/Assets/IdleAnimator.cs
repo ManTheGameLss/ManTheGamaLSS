@@ -10,10 +10,14 @@ public class IdleAnimator : MonoBehaviour
     public Animator animator;
     public ThirdPersonController thirdPersonController;
 
+    public Transform frontSideRightTransform;
+    public Transform sideRightTransform;
+    public Transform behindSideRightTransform;
+
     #region State Bools
 
     bool idle;
-    bool walking;
+    public bool walking;
     bool inAir;
     bool attacking;
 
@@ -29,6 +33,12 @@ public class IdleAnimator : MonoBehaviour
     bool sideBackSideRight;
     bool sideSideRight;
     bool sideSideLeft;
+
+    bool generalSideBack;
+    bool generalSideFront;
+    bool generalSide;
+
+    public float dotter;
 
     #endregion
 
@@ -51,7 +61,7 @@ public class IdleAnimator : MonoBehaviour
     bool walkFrontSideRight;
     bool walkSideRight;
     bool walkBehindSideRight;
-    bool walkBehind;
+    public bool walkBehind;
     bool walkBehindSideLeft;
     bool walkSideLeft;
     bool walkFrontSideLeft;
@@ -60,7 +70,6 @@ public class IdleAnimator : MonoBehaviour
 
     #region ThirdPersonControllerBools
 
-    public float generalAngle;
     public bool playerIsMoving;
     bool playerIsInAir;
     bool noIdle;
@@ -69,7 +78,6 @@ public class IdleAnimator : MonoBehaviour
     public bool stopBecauseYes;
 
     #endregion
-
 
     // Start is called before the first frame update
     void Start()
@@ -92,15 +100,15 @@ public class IdleAnimator : MonoBehaviour
         CheckTPCBools();
         GetWalkingRotations();
         LockCamera();
-        GetGeneralRotations();
         GetStates();
+        SetCameraRotationValues();
     }
 
     void GetStates()
     {
         #region Idle
 
-        if (!playerIsInAir && !playerIsMoving && !noIdle)
+        if (!playerIsInAir && !playerIsMoving)
         {
             idle = true;
         }
@@ -113,7 +121,7 @@ public class IdleAnimator : MonoBehaviour
 
         #region Walking
 
-        if (!playerIsInAir && playerIsMoving && noIdle)
+        if (!playerIsInAir && playerIsMoving)
         {
             walking = true;
         }
@@ -140,129 +148,6 @@ public class IdleAnimator : MonoBehaviour
         #region Attacking
 
         #endregion
-    }
-
-    void GetGeneralRotations()
-    {
-        //the difference between the camera y rotation and the sprite y rotation is calculated and called "generalAngle"
-        generalAngle = cameraAngle.rotation.eulerAngles.y - spriteAngle.rotation.eulerAngles.y;
-
-        //if generalAngle is greater than a certain number and smaller than the same number multiplied by -1 an animation is triggered that will change the sprite rendered
-        //only the front one has been done
-        #region directions
-
-        //rotationg to the left makes generalAngle go up, rotationg to the right makes it go down
-
-        #region Front
-
-        #region Example
-        //in this case, if generalAngle is a number between 23 and -23 it meens that you're watching the sprite from the front and renders the front-sprite
-        if ((generalAngle < 22.5 && generalAngle > 0) || (generalAngle < 360 && generalAngle > 337.5))
-        {
-            sideFront = true;
-        }
-        else
-        {
-            sideFront = false;
-        }
-
-        #endregion
-
-        #endregion
-
-        #region frontSideLeft
-
-        if (generalAngle < 337.5 && generalAngle > 292.5)
-        {
-            sideFrontSideLeft = true;
-        }
-        else
-        {
-            sideFrontSideLeft = false;
-        }
-
-        #endregion
-
-        #region SideLeft
-
-        if (generalAngle < 292.5 && generalAngle > 247.5)
-        {
-            sideSideLeft = true;
-        }
-        else
-        {
-            sideSideLeft = false;
-        }
-
-        #endregion
-
-        #region behindSideLeft
-
-        if (generalAngle < 247.5 && generalAngle > 202.5)
-        {
-            sideBackSideLeft = true;
-        }
-        else
-        {
-            sideBackSideLeft = false;
-        }
-
-        #endregion
-
-        #region Behind
-
-        if (generalAngle < 202.5 && generalAngle > 157.5)
-        {
-            sideBack = true;
-        }
-        else
-        {
-            sideBack = false;
-        }
-
-        #endregion
-
-        #region behindSideRight
-
-        if (generalAngle < 157.5 && generalAngle > 112.5)
-        {
-            sideBackSideRight = true;
-        }
-        else
-        {
-            sideBackSideRight = false;
-        }
-
-        #endregion
-
-        #region sideRight
-
-        if (generalAngle < 112.5 && generalAngle > 67.5)
-        {
-            sideSideRight = true;
-        }
-        else
-        {
-            sideSideRight = false;
-        }
-
-        #endregion
-
-        #region frontSideRight
-
-        if (generalAngle < 67.5 && generalAngle > 22.5)
-        {
-            sideFrontSideRight = true;
-        }
-        else
-        {
-            sideFrontSideRight = false;
-        }
-
-        #endregion
-
-        #endregion
-
     }
 
     void LockCamera()
@@ -393,6 +278,17 @@ public class IdleAnimator : MonoBehaviour
 
             #endregion
         }
+        else
+        {
+            frontSideLeft = false;
+            frontSideRight = false;
+            behindSideLeft = false;
+            behindSideRight = false;
+            frontSprite = false;
+            behindSprite = false;
+            sideLeft = false;
+            sideRight = false;
+        }
     }
     void CheckTPCBools()
     {
@@ -433,7 +329,7 @@ public class IdleAnimator : MonoBehaviour
         {
             #region Directions
 
-            #region front
+            #region Front
 
             if (sideFront)
             {
@@ -446,45 +342,7 @@ public class IdleAnimator : MonoBehaviour
 
             #endregion
 
-            #region frontSideRight
-
-            if (sideFrontSideRight)
-            {
-                walkFrontSideRight = true;
-            }
-            else
-            {
-                walkFrontSideRight = false;
-            }
-
-            #endregion
-
-            #region sideRight
-
-            if (sideSideRight)
-            {
-                walkSideRight = true;
-            }
-            else
-            {
-                walkSideRight = false;
-            }
-
-            #endregion
-
-            #region behindSideRight
-
-            if (sideBackSideRight)
-            {
-                walkBehindSideRight = true;
-            }
-            else
-            {
-                walkBehindSideRight = false;
-            }
-            #endregion
-
-            #region behind
+            #region Back
 
             if (sideBack)
             {
@@ -497,7 +355,46 @@ public class IdleAnimator : MonoBehaviour
 
             #endregion
 
-            #region behindSideLeft
+            #region FrontSideRight
+
+            if (sideFrontSideRight)
+            {
+                walkFrontSideRight = true;
+            }
+            else
+            {
+                walkFrontSideRight = false;
+            }
+
+            #endregion
+
+            #region SideRight
+
+            if (sideSideRight)
+            {
+                walkSideRight = true;
+            }
+            else
+            {
+                walkSideRight = false;
+            }
+
+            #endregion
+
+            #region BackSideRight
+
+            if (sideBackSideRight)
+            {
+                walkBehindSideRight = true;
+            }
+            else
+            {
+                walkBehindSideRight = false;
+            }
+
+            #endregion
+
+            #region BackSideLeft
 
             if (sideBackSideLeft)
             {
@@ -510,8 +407,8 @@ public class IdleAnimator : MonoBehaviour
 
             #endregion
 
-            #region sideLeft
-
+            #region SideLeft
+            
             if (sideSideLeft)
             {
                 walkSideLeft = true;
@@ -523,7 +420,7 @@ public class IdleAnimator : MonoBehaviour
 
             #endregion
 
-            #region frontSideLeft
+            #region FrontSideLeft
 
             if (sideFrontSideLeft)
             {
@@ -537,6 +434,17 @@ public class IdleAnimator : MonoBehaviour
             #endregion
 
             #endregion
+        }
+        else
+        {
+            walkFrontSideLeft = false;
+            walkFrontSideRight = false;
+            walkBehind = false;
+            walkFront = false;
+            walkSideLeft = false;
+            walkSideRight = false;
+            walkBehindSideLeft = false;
+            walkBehindSideRight = false;
         }
 
     }
@@ -625,5 +533,74 @@ public class IdleAnimator : MonoBehaviour
         }
 
         #endregion
+
+        #region Walking
+
+        if (walkBehind)
+        {
+            animator.SetBool("BackWalking", true);
+        }
+        else
+        {
+            animator.SetBool("BackWalking", false);
+        }
+
+        if (walkFront)
+        {
+            animator.SetBool("FrontWalking", true);
+        }
+        else
+        {
+            animator.SetBool("FrontWalking", false);
+        }
+
+        #endregion
+    }
+
+    void SetCameraRotationValues()
+    {
+        Vector3 direzione = Vector3.Normalize(
+            cameraAngle.position - spriteAngle.position);
+
+        float dot = Vector3.Dot(lhs: spriteAngle.forward, rhs: direzione);
+
+        dotter = dot;
+
+        //.707 = 45°
+        //.3535 = 22.5°
+
+        sideFront = dot > 0.6465;
+        sideBack = dot < -0.6465;
+        sideBackSideLeft = dot < -0.293 && dot > -0.6465 && !sideBackSideRight;
+        sideFrontSideLeft = dot > 0.293 && dot < 0.6465 && !sideFrontSideRight;
+        sideSideLeft = dot > -0.3535 && dot < 0.3535 && !sideSideRight;
+
+
+
+        Vector3 direzione2 = Vector3.Normalize(
+            cameraAngle.position - sideRightTransform.position);
+
+        float dot2 = Vector3.Dot(lhs: sideRightTransform.forward, rhs: direzione);
+
+        sideSideRight = dot2 > 0.6465;
+
+
+
+        Vector3 direzione3 = Vector3.Normalize(
+            cameraAngle.position - frontSideRightTransform.position);
+
+        float dot3 = Vector3.Dot(lhs: frontSideRightTransform.forward, rhs: direzione);
+
+        sideFrontSideRight = dot3 > 0.6465;
+
+
+
+        Vector3 direzione4 = Vector3.Normalize(
+            cameraAngle.position - behindSideRightTransform.position);
+
+        float dot4 = Vector3.Dot(lhs: behindSideRightTransform.forward, rhs: direzione);
+
+        sideBackSideRight = dot3 > 0.6465;
+
     }
 }
