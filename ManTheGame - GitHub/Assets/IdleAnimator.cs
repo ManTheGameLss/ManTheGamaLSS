@@ -17,7 +17,7 @@ public class IdleAnimator : MonoBehaviour
     #region State Bools
 
     bool idle;
-    public bool walking;
+    bool walking;
     bool inAir;
     bool attacking;
 
@@ -61,7 +61,7 @@ public class IdleAnimator : MonoBehaviour
     bool walkFrontSideRight;
     bool walkSideRight;
     bool walkBehindSideRight;
-    public bool walkBehind;
+    bool walkBehind;
     bool walkBehindSideLeft;
     bool walkSideLeft;
     bool walkFrontSideLeft;
@@ -70,11 +70,11 @@ public class IdleAnimator : MonoBehaviour
 
     #region ThirdPersonControllerBools
 
-    public bool playerIsMoving;
+    bool playerIsMoving;
     bool playerIsInAir;
     bool noIdle;
 
-    //stops the camera rotation (this is intended for future development)
+    //stops the camera rotation (this is intended for future development) - USE WHILE ATTACKING
     public bool stopBecauseYes;
 
     #endregion
@@ -95,13 +95,19 @@ public class IdleAnimator : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        GetIdleRotations();
         SetAnimatorBools();
         CheckTPCBools();
-        GetWalkingRotations();
         LockCamera();
         GetStates();
         SetCameraRotationValues();
+        GetAllRotations();
+    }
+
+    //IMPORTANT
+    void GetAllRotations()
+    {
+        GetIdleRotations();
+        GetWalkingRotations();
     }
 
     void GetStates()
@@ -552,6 +558,60 @@ public class IdleAnimator : MonoBehaviour
         else
         {
             animator.SetBool("FrontWalking", false);
+        }
+
+        if (walkBehindSideRight)
+        {
+            animator.SetBool("BackSideRightWalk", true);
+        }
+        else
+        {
+            animator.SetBool("BackSideRightWalk", false);
+        }
+
+        if (walkBehindSideLeft)
+        {
+            animator.SetBool("BackSideLeftWalk", true);
+        }
+        else
+        {
+            animator.SetBool("BackSideLeftWalk", false);
+        }
+
+        if (walkFrontSideRight)
+        {
+            animator.SetBool("FrontSideRightWalk", true);
+        }
+        else
+        {
+            animator.SetBool("FrontSideRightWalk", false);
+        }
+
+        if (walkFrontSideLeft)
+        {
+            animator.SetBool("FrontSideLeftWalk", true);
+        }
+        else
+        {
+            animator.SetBool("FrontSideLeftWalk", false);
+        }
+
+        if (walkSideRight)
+        {
+            animator.SetBool("SideRightWalk", true);
+        }
+        else
+        {
+            animator.SetBool("SideRightWalk", false);
+        }
+
+        if (walkSideLeft)
+        {
+            animator.SetBool("SideLeftWalk", true);
+        }
+        else
+        {
+            animator.SetBool("SideLeftWalk", false);
         }
 
         #endregion
