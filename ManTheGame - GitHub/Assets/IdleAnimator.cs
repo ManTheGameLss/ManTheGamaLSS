@@ -296,6 +296,7 @@ public class IdleAnimator : MonoBehaviour
             sideRight = false;
         }
     }
+
     void CheckTPCBools()
     {
         //checks if the player is moving
@@ -454,6 +455,7 @@ public class IdleAnimator : MonoBehaviour
         }
 
     }
+
     void SetAnimatorBools()
     {
         #region Idle
@@ -629,38 +631,38 @@ public class IdleAnimator : MonoBehaviour
         //.707 = 45°
         //.3535 = 22.5°
 
-        sideFront = dot > 0.6465;
-        sideBack = dot < -0.6465;
-        sideBackSideLeft = dot < -0.293 && dot > -0.6465 && !sideBackSideRight;
-        sideFrontSideLeft = dot > 0.293 && dot < 0.6465 && !sideFrontSideRight;
-        sideSideLeft = dot > -0.3535 && dot < 0.3535 && !sideSideRight;
+        sideFront = dot > 0.75;
+        sideBack = dot < -0.75;
+        sideBackSideLeft = dot < -0.25 && dot > -0.75 && !sideBackSideRight;
+        sideFrontSideLeft = dot > 0.25 && dot < 0.75 && !sideFrontSideRight;
+        sideSideLeft = dot > -0.25 && dot < 0.25 && !sideSideRight;
 
 
 
         Vector3 direzione2 = Vector3.Normalize(
             cameraAngle.position - sideRightTransform.position);
 
-        float dot2 = Vector3.Dot(lhs: sideRightTransform.forward, rhs: direzione);
+        float dot2 = Vector3.Dot(lhs: sideRightTransform.forward, rhs: direzione2);
 
-        sideSideRight = dot2 > 0.6465;
+        sideSideRight = dot2 > 0.75;
 
 
 
         Vector3 direzione3 = Vector3.Normalize(
             cameraAngle.position - frontSideRightTransform.position);
 
-        float dot3 = Vector3.Dot(lhs: frontSideRightTransform.forward, rhs: direzione);
+        float dot3 = Vector3.Dot(lhs: frontSideRightTransform.forward, rhs: direzione3);
 
-        sideFrontSideRight = dot3 > 0.6465;
+        sideFrontSideRight = dot3 > 0.75;
 
 
 
         Vector3 direzione4 = Vector3.Normalize(
             cameraAngle.position - behindSideRightTransform.position);
 
-        float dot4 = Vector3.Dot(lhs: behindSideRightTransform.forward, rhs: direzione);
+        float dot4 = Vector3.Dot(lhs: behindSideRightTransform.forward, rhs: direzione4);
 
-        sideBackSideRight = dot3 > 0.6465;
+        sideBackSideRight = dot4 > 0.75;
 
     }
 }

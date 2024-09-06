@@ -4230,23 +4230,8 @@ MonoBehaviour:
   frontSideRightTransform: {fileID: 657116989}
   sideRightTransform: {fileID: 1829411886}
   behindSideRightTransform: {fileID: 2121262629}
-  walking: 0
-  sideFront: 0
-  sideBack: 0
-  sideFrontSideRight: 0
-  sideBackSideLeft: 0
-  sideFrontSideLeft: 0
-  sideBackSideRight: 0
-  sideSideRight: 0
-  sideSideLeft: 0
   dotter: 0
-  playerIsMoving: 0
   stopBecauseYes: 0
-  generalAngle: 0
-  actualCameraAngle: 0
-  actualSpriteAngle: 0
-  resetCameraAngle: 0
-  angleDifference: 0
 --- !u!114 &1719036361
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6826,13 +6811,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2121262628}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0.9238796, z: -0, w: -0.38268325}
+  m_LocalRotation: {x: 0, y: 0.92387956, z: 0, w: 0.38268343}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 967891929}
-  m_LocalEulerAnglesHint: {x: 0, y: 225, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 135, z: 0}
 --- !u!1 &2114283753834967212
 GameObject:
   m_ObjectHideFlags: 0
