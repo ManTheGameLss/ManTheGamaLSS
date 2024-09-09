@@ -5,6 +5,11 @@ using UnityEngine;
 
 public class IdleAnimator : MonoBehaviour
 {
+
+    #region ImportantStuff
+
+    #region Components
+
     public Transform cameraAngle;
     public Transform spriteAngle;
     public Animator animator;
@@ -13,6 +18,8 @@ public class IdleAnimator : MonoBehaviour
     public Transform frontSideRightTransform;
     public Transform sideRightTransform;
     public Transform behindSideRightTransform;
+
+    #endregion
 
     #region State Bools
 
@@ -79,17 +86,21 @@ public class IdleAnimator : MonoBehaviour
 
     #endregion
 
+    bool frontJump;
+    bool backJump;
+    bool frontSideRightJump;
+    bool frontSideLeftJump;
+    bool sideRightJump;
+    bool sideLeftJump;
+    bool backSideRightJump;
+    bool backSideLeftJump;
+
+    #endregion
+
     // Start is called before the first frame update
     void Start()
     {
-        frontSprite = false;
-        frontSideRight = false;
-        frontSideLeft = false;
-        sideRight = false;
-        sideLeft = false;
-        behindSideRight = false;
-        behindSideLeft = false;
-        behindSprite = false;
+
     }
 
     // Update is called once per frame
@@ -108,6 +119,7 @@ public class IdleAnimator : MonoBehaviour
     {
         GetIdleRotations();
         GetWalkingRotations();
+        GetJumpingRotations();
     }
 
     void GetStates()
@@ -621,6 +633,9 @@ public class IdleAnimator : MonoBehaviour
 
     void SetCameraRotationValues()
     {
+
+        #region General
+
         Vector3 direzione = Vector3.Normalize(
             cameraAngle.position - spriteAngle.position);
 
@@ -637,7 +652,9 @@ public class IdleAnimator : MonoBehaviour
         sideFrontSideLeft = dot > 0.25 && dot < 0.75 && !sideFrontSideRight;
         sideSideLeft = dot > -0.25 && dot < 0.25 && !sideSideRight;
 
+        #endregion
 
+        #region Side
 
         Vector3 direzione2 = Vector3.Normalize(
             cameraAngle.position - sideRightTransform.position);
@@ -646,7 +663,9 @@ public class IdleAnimator : MonoBehaviour
 
         sideSideRight = dot2 > 0.75;
 
+        #endregion
 
+        #region FrontSide
 
         Vector3 direzione3 = Vector3.Normalize(
             cameraAngle.position - frontSideRightTransform.position);
@@ -655,7 +674,9 @@ public class IdleAnimator : MonoBehaviour
 
         sideFrontSideRight = dot3 > 0.75;
 
+        #endregion
 
+        #region BackSide
 
         Vector3 direzione4 = Vector3.Normalize(
             cameraAngle.position - behindSideRightTransform.position);
@@ -663,6 +684,135 @@ public class IdleAnimator : MonoBehaviour
         float dot4 = Vector3.Dot(lhs: behindSideRightTransform.forward, rhs: direzione4);
 
         sideBackSideRight = dot4 > 0.75;
+
+        #endregion
+
+    }
+
+    void GetJumpingRotations()
+    {
+        if (inAir)
+        {
+            #region Directions
+
+            #region Front
+
+            if (sideFront)
+            {
+                frontJump = true;
+            }
+            else
+            {
+                frontJump = false;
+            }
+
+            #endregion
+
+            #region Back
+
+            if (sideBack)
+            {
+                backJump = true;
+            }
+            else
+            {
+                backJump = false;
+            }
+
+            #endregion
+
+            #region FrontSideRight
+
+            if (sideFrontSideRight)
+            {
+                frontSideRightJump = true;
+            }
+            else
+            {
+                frontSideRightJump = false;
+            }
+
+            #endregion
+
+            #region SideRight
+
+            if (sideSideRight)
+            {
+                sideRightJump = true;
+            }
+            else
+            {
+                sideRightJump = false;
+            }
+
+            #endregion
+
+            #region BackSideRight
+
+            if (sideBackSideRight)
+            {
+                backSideRightJump = true;
+            }
+            else
+            {
+                backSideRightJump = false;
+            }
+
+            #endregion
+
+            #region BackSideLeft
+
+            if (sideBackSideLeft)
+            {
+                backSideLeftJump = true;
+            }
+            else
+            {
+                backSideLeftJump = false;
+            }
+
+            #endregion
+
+            #region SideLeft
+
+            if (sideSideLeft)
+            {
+                sideLeftJump = true;
+            }
+            else
+            {
+                sideLeftJump = false;
+            }
+
+            #endregion
+
+            #region FrontSideLeft
+
+            if (sideFrontSideLeft)
+            {
+                frontSideLeftJump = true;
+            }
+            else
+            {
+                frontSideLeftJump = false;
+            }
+
+            #endregion
+
+            #endregion
+        }
+        else
+        {
+            frontJump = false;
+            backJump = false;
+            frontSideLeftJump = false;
+            frontSideRightJump = false;
+            sideLeftJump = false;
+            sideRightJump = false;
+            backSideLeftJump = false;
+            backSideRightJump = false;
+        }
+
 
     }
 }
