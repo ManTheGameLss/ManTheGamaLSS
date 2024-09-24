@@ -629,6 +629,82 @@ public class IdleAnimator : MonoBehaviour
         }
 
         #endregion
+
+        #region Air
+
+        if (backJump)
+        {
+            animator.SetBool("BackJump", true);
+        }
+        else
+        {
+            animator.SetBool("BackJump", false);
+        }
+
+        if (frontJump)
+        {
+            animator.SetBool("FrontJump", true);
+        }
+        else
+        {
+            animator.SetBool("FrontJump", false);
+        }
+
+        if (frontSideRightJump)
+        {
+            animator.SetBool("FrontSideRightJump", true);
+        }
+        else
+        {
+            animator.SetBool("FrontSideRightJump", false);
+        }
+
+        if (frontSideLeftJump)
+        {
+            animator.SetBool("FrontSideLeftJump", true);
+        }
+        else
+        {
+            animator.SetBool("FrontSideLeftJump", false);
+        }
+
+        if (sideRightJump)
+        {
+            animator.SetBool("SideRightJump", true);
+        }
+        else
+        {
+            animator.SetBool("SideRightJump", false);
+        }
+
+        if (sideLeftJump)
+        {
+            animator.SetBool("SideLeftJump", true);
+        }
+        else
+        {
+            animator.SetBool("SideLeftJump", false);
+        }
+
+        if (backSideRightJump)
+        {
+            animator.SetBool("BackSideRightJump", true);
+        }
+        else
+        {
+            animator.SetBool("BackSideRightJump", false);
+        }
+
+        if (backSideLeftJump)
+        {
+            animator.SetBool("BackSideLeftJump", true);
+        }
+        else
+        {
+            animator.SetBool("BackSideLeftJump", false);
+        }
+
+        #endregion
     }
 
     void SetCameraRotationValues()
